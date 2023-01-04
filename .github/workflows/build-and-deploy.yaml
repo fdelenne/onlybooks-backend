@@ -1,0 +1,36 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+      
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Build and test
+        run: |
+          mvn clean test
+          mvn package -DskipTests
+      - name: Build Docker image
+        run: |
+          docker build -t my-app .
+          docker tag my-app:latest gcr.io/my-project/my-app:latest
+          
+  deploy-to-google-cloud:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Authenticate with Google Cloud
+          uses: google-github-actions/setup-gcloud@v1
+          with:
+              service_account_key: ${{ secrets.GOOGLE_CLOUD_KEY }}
+        - name: Push Docker image to Google Cloud
+          run: |
+            gcloud auth configure-docker
+            docker push gcr.io/my-project/my-app:latest

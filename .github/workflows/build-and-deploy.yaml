@@ -15,7 +15,7 @@ jobs:
           java-version: 8
       - name: Build and test
         run: |
-          mvn clean test
+          mvn clean --file *.pom
           mvn package -DskipTests
       - name: Build Docker image
         run: |

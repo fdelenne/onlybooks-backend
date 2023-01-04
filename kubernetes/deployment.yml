@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  onlybooks-backend-api
+  labels:
+    app: onlybooks-backend-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onlybooks-backend-api
+  template:
+    metadata:
+      labels:
+        app: onlybooks-backend-api
+    spec:
+      containers:
+      - name: onlybooks-backend-image
+        image: onlybooks-backend-container
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: DB_HOST
+          value: "onlybooks-db-service" 

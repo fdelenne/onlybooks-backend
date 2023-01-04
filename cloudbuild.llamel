@@ -1,0 +1,8 @@
+steps:
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t',
+          'us-south1-docker.pkg.dev/$PROJECT_ID/demo-docker-repository/backendimage:latest',
+          './bookstore' ]
+images:
+- 'us-south1-docker.pkg.dev/$PROJECT_ID/demo-docker-repository/backendimage:latest'

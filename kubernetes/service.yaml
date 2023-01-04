@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: onlybooks-backend-service
+  labels:
+    app: onlybooks-backend-api
+spec:
+  selector:
+    app: onlybooks-backend-api
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP

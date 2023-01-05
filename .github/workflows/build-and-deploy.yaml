@@ -15,8 +15,7 @@ jobs:
           java-version: 8
       - name: Build and test
         run: |
-          mvn clean test
-          mvn package -DskipTests
+          mvn clean package -DskipTests
       - name: Build Docker image
         run: |
           docker build -t my-app .

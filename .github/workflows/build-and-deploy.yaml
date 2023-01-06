@@ -21,7 +21,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t my-app .
-          docker tag my-app:latest gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
+          docker tag my-app gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
           
   deploy-to-google-cloud:
       runs-on: ubuntu-latest

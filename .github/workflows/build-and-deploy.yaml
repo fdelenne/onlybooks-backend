@@ -21,8 +21,9 @@ jobs:
           mvn clean package -DskipTests
       - name: Build Docker image
         run: |
-          docker build -t my-app .
-          docker tag my-app:latest gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
+          docker build --tag "gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest"
+      #    docker build -t my-app .
+      #    docker tag my-app:latest gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
           
   deploy-to-google-cloud:
       needs: build-and-test
@@ -37,4 +38,4 @@ jobs:
         - name: Push Docker image to Google Cloud
           run: |
             gcloud auth configure-docker
-            docker push gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
+            docker push "gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest"

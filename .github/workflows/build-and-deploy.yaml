@@ -7,6 +7,7 @@ on:
 
 # Creationg of jobs
 jobs:
+
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +25,9 @@ jobs:
           docker tag my-app gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
           
   deploy-to-google-cloud:
+      needs: build-and-test
       runs-on: ubuntu-latest
+      
       steps:
         - uses: actions/checkout@v2
         - name: Authenticate with Google Cloud

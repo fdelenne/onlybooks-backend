@@ -20,8 +20,7 @@ jobs:
         run: |
           mvn clean package -DskipTests
       - name: Build Docker image
-        run: |
-          docker build -t my-app:lates .
+        run: docker build -t my-app:latest .
         #  docker build --tag "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest" .
         # trying new things
   deploy-to-google-cloud:

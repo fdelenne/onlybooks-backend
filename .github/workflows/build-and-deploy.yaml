@@ -21,10 +21,9 @@ jobs:
           mvn clean package -DskipTests
       - name: Build Docker image
         run: |
-          docker build --tag "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest" .
-      #    docker build -t my-app .
-      #    docker tag my-app:latest gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
-          # trying new things
+          docker build -t my-app:lates .
+        #  docker build --tag "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest" .
+        # trying new things
   deploy-to-google-cloud:
       needs: build-and-test
       runs-on: ubuntu-latest
@@ -40,4 +39,5 @@ jobs:
           run: |
             gcloud auth configure-docker --quiet
             gcloud auth configure-docker us-south1-docker.pkg.dev --quiet
-            docker push "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest"
+            docker tag my-app:latest us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest
+            docker push us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest

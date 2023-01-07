@@ -21,7 +21,7 @@ jobs:
           mvn clean package -DskipTests
       - name: Build Docker image
         run: |
-          docker build --tag "gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest" .
+          docker build --tag "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest" .
       #    docker build -t my-app .
       #    docker tag my-app:latest gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest
           # trying new things
@@ -35,7 +35,9 @@ jobs:
           uses: google-github-actions/setup-gcloud@v1
           with:
               service_account_key: ${{ secrets.GOOGLE_CLOUD_KEY }}
+              project_id: ${{ secrets.GKE_PROJECT }}
         - name: Push Docker image to Google Cloud
           run: |
-            gcloud auth configure-docker
-            docker push "gcr.io/gd-gcp-onlybooks-mx-internship/my-app:latest"
+            gcloud auth configure-docker --quiet
+            gcloud auth configure-docker us-south1-docker.pkg.dev --quiet
+            docker push "us-south1-docker.pkg.dev/gd-gcp-onlybooks-mx-internship/backend/my-app:latest"

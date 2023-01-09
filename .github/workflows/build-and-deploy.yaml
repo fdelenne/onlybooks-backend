@@ -40,6 +40,7 @@ jobs:
               export_default_credentials: true
         - name: Push Docker image to Google Cloud
           run: |
+            gcloud auth login
             gcloud auth configure-docker --quiet
             gcloud auth configure-docker us-south1-docker.pkg.dev --quiet
             docker build -t $IMAGE_NAME:latest .
